@@ -17,16 +17,16 @@ Thus you need something the same.
 
 ### Running
 
-Use script **start.sh** for running this project and all components
+Use script **run.sh** for running this project and all components
 
 ```
-./start.sh <number>
+./run.sh <number>
 ```
 
-Where **<number>** - number instances for web application, e. g.:
+Where **\<number\>** - number of instances of a web application, e. g.:
 
 ```
-./start.sh 3
+./run.sh 3
 ```
 
 Web-service is available on **<host_ip>**:80. 

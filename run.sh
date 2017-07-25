@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-NUMBER_WEB_INSTANCES=$1
+# Checking the existence of the first parameter from the command line
+if [ -n "$1" ]
+then
+  NUMBER_WEB_INSTANCES=$1
+else
+  NUMBER_WEB_INSTANCES=1 # default
+fi
 SLEEP_INTERVAL=10
 MYSQL_USER=domru
 MYSQL_PASSWORD=passsword01

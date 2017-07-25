@@ -1,0 +1,3 @@
+[submodule "MovieInfoService"]
+	path = MovieInfoService
+	url = git@github.com:GRomR1/MovieInfoService.git

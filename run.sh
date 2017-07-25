@@ -11,6 +11,9 @@ MYSQL_DATABASE=mv_db
 git submodule init > /dev/null 2>&1
 git submodule update > /dev/null 2>&1
 
+#Copy original config file docker-compose.yml
+yes | cp  docker-compose.yml docker-compose.yml.orig > /dev/null 2>&1
+
 #Add specified parameters to docker-compose config
 sed -i "s/mysqluser/${MYSQL_USER}/g" docker-compose.yml
 sed -i "s/user_password/${MYSQL_PASSWORD}/g" docker-compose.yml

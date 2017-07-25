@@ -8,7 +8,6 @@ MYSQL_ROOT_PASSWORD=passsword02
 MYSQL_DATABASE=mv_db
 
 #Get web-application source code
-git submodule init > /dev/null 2>&1
 git submodule update > /dev/null 2>&1
 
 #Add specified parameters to docker-compose config

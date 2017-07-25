@@ -1,0 +1,67 @@
+version: '2.2'
+
+networks:
+  demo:
+  
+services:
+  lb:
+    image: nginx
+    restart: on-failure
+    volumes:
+      - ./nginx/proxy-pass.conf:/etc/nginx/nginx.conf
+    networks:
+      - demo
+    ports:
+      - 80:80
+    depends_on:
+      - web
+    # Number of CPUs. Number is a fractional number. 0.000 means no limit. -- 10%
+    cpus: 0.1
+    # Limit the CPU CFS (Completely Fair Scheduler) quota
+    #cpu_quota: 50000
+    # Memory limit -- 50Mbytes
+    mem_limit: 52428800 
+  web:
+    image: python:3.5-slim
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile-web
+      args:
+        user: mysqluser
+        password: user_password
+        host: db
+        db_name: database_name
+    networks: 
+      demo:
+        aliases:
+          - backendapps
+    expose:
+      - 8080
+    depends_on:
+      - db
+    cpus: 0.1 
+    mem_limit: 52428800
+  db:
+    image: centurylink/mysql
+    restart: on-failure
+    environment:
+      MYSQL_USER: mysqluser
+      MYSQL_PASSWORD: user_password
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: database_name
+    networks:
+      - demo
+    expose:
+      - 3306
+    cpus: 0.1
+    mem_limit: 104857600
+    # Next options work only docker swarm and compose-file-v3 
+    #  => it's not used
+    #deploy: 
+    #  replicas: 1
+    #  resources:
+    #    limits:
+    #      cpus: "0.1"
+    #      memory: 50M
+

@@ -1,0 +1,27 @@
+FROM python:3.5-slim
+
+ARG user
+ARG password
+ARG host
+ARG db_name
+
+# Get source code
+ADD MovieInfoService /MovieInfoService
+ADD utils/wait-for-it.sh /
+RUN touch .bashrc
+RUN chmod +x /wait-for-it.sh
+
+# Set the working directory to 'MovieInfoService'
+WORKDIR /MovieInfoService
+
+# Install any needed packages specified in requirements.txt
+RUN pip install -r requirements.txt
+
+# Configure connection to database
+RUN sed -i "s/root/$user/g" config.ini
+RUN sed -i "s/toor/$password/g" config.ini
+RUN sed -i "s/localhost/$host/g" config.ini
+RUN sed -i "s/mv_db/$db_name/g" config.ini
+
+# Run web_app.py when the container launches
+CMD ["/wait-for-it.sh", "db:3306", "--strict", "--", "python", "web_app.py"]

@@ -23,7 +23,7 @@ docker-compose up -d --scale web=${NUMBER_WEB_INSTANCES}
 sleep ${SLEEP_INTERVAL}
 
 #Restore a database data from backup-file
-docker exec domru_db_1 sh -c 'exec mysql --user=root --password=${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE}' < dump.sql 
+docker exec domru_db_1 sh -c 'exec mysql --user=root --password=${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} < dump.sql'
 
 #Show info about containers that are executing
 docker-compose ps

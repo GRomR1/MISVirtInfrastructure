@@ -20,7 +20,7 @@ services:
     # Limit the CPU CFS (Completely Fair Scheduler) quota
     #cpu_quota: 50000
     # Memory limit -- 50Mbytes
-    mem_limit: 52428800 
+    mem_limit: 50m 
   web:
     image: python:3.5-slim
     restart: on-failure
@@ -41,7 +41,7 @@ services:
     depends_on:
       - db
     cpus: 0.1 
-    mem_limit: 52428800
+    mem_limit: 50m
   db:
     image: centurylink/mysql
     restart: on-failure
@@ -55,7 +55,7 @@ services:
     expose:
       - 3306
     cpus: 0.1
-    mem_limit: 104857600
+    mem_limit: 100m
     # Next options work only docker swarm and compose-file-v3 
     #  => it's not used
     #deploy: 
